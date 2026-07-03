@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Paper & Poetry Club | Monthly Mail</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..700;1,400..700&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* --- Design Tokens & Resets --- */
+        :root {
+            --bg-color: #fbf9f6;
+            --card-bg: #ffffff;
+            --text-main: #3e332e;
+            --text-muted: #7a6e67;
+            --accent-warm: #d4a373;
+            --accent-terracotta: #b56576;
+            --border-color: #eee7de;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        /* --- Reusable Components --- */
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: var(--bg-color);
+            padding: 12px 28px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--text-main);
+            border-color: var(--text-main);
+            transform: translateY(-2px);
+        }
+
+        /* --- Header / Navigation --- */
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-style: italic;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            margin-left: 25px;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--text-main);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero-tag {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-terracotta);
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: 3.2rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+
+        /* --- Pinterest Grid (What's Inside) --- */
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(62, 51, 46, 0.04);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 350px;
+            background-color: #eee7de;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Cozy placeholder stylings for images */
+        .img-placeholder-1 { background: #e6dfd5 url('https://images.unsplash.com/photo-1586075010923-2dd45e9b2d4f?auto=format&fit=crop&w=600&q=80') center/cover; }
+        .img-placeholder-2 { background: #dfd5cb url('https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80') center/cover; }
+        .img-placeholder-3 { background: #e3ded7 url('https://images.unsplash.com/photo-1516414447565-b14be0adf13e?auto=format&fit=crop&w=600&q=80') center/cover; }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .card-content p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- How It Works --- */
+        .how-it-works {
+            background-color: #f5efe6;
+            padding: 80px 40px;
+            border-radius: 30px;
+            margin-bottom: 100px;
+            text-align: center;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .step h4 {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .step p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .step-number {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--accent-terracotta);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* --- Tier / Subscription Section --- */
+        .pricing {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .tier-card {
+            max-width: 450px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--accent-warm);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(212, 163, 115, 0.1);
+        }
+
+        .price {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin: 15px 0;
+        }
+
+        .tier-card ul {
+            list-style: none;
+            margin: 25px 0 35px 0;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .tier-card ul li {
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .tier-card ul li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: var(--accent-warm);
+        }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.4rem; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <a href="#" class="logo">the paper club.</a>
+            <nav>
+                <a href="#inside">What's Inside</a>
+                <a href="#how">How It Works</a>
+                <a href="#subscribe">Subscribe</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <span class="hero-tag">Snail mail for slow living</span>
+            <h1>Slow down and find magic in your mailbox.</h1>
+            <p>A monthly curation of beautifully illustrated stationery, handwritten poetry, pressed botanicals, and cozy ephemera delivered straight to your doorstep.</p>
+            <a href="#subscribe" class="btn">Join the Club</a>
+        </section>
+
+        <section id="inside">
+            <h2 class="section-title">In Every Autumn Parcel</h2>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-img img-placeholder-1"></div>
+                    <div class="card-content">
+                        <h3>Illustrated Stationery</h3>
+                        <p>Three custom-designed letterpress sheets, matching envelopes, and matching journaling stickers created by independent artists.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img img-placeholder-2"></div>
+                    <div class="card-content">
+                        <h3>Pressed Botanicals & Tea</h3>
+                        <p>A seasonal, hand-blended loose leaf tea sachet accompanied by a beautifully preserved seasonal leaf or flower card.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img img-placeholder-3"></div>
+                    <div class="card-content">
+                        <h3>The Monthly Prose</h3>
+                        <p>A beautifully typed literary reprint or original poetry piece on vintage textured paper to inspire your quiet mornings.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works" id="how">
+            <h2 class="section-title">How It Unfolds</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">01</span>
+                    <h4>Subscribe</h4>
+                    <p>Sign up before the last day of the month to secure the upcoming seasonal parcel.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">02</span>
+                    <h4>We Curate</h4>
+                    <p>We hand-stamp, wrap in twine, and carefully assemble each individual parcel with love.</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">03</span>
+                    <h4>Unwrap Joy</h4>
+                    <p>Your mail arrives around the 10th. Light a candle, brew a cup, and enjoy the art of tangible mail.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing" id="subscribe">
+            <h2 class="section-title">Choose Your Season</h2>
+            <div class="tier-card">
+                <span class="hero-tag" style="color: var(--accent-warm);">The Monthly Parcel</span>
+                <div class="price">$18<span>/month</span></div>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Free shipping. Cancel or skip anytime.</p>
+                
+                <ul>
+                    <li>5-7 curated seasonal items</li>
+                    <li>Exclusive access to our pen-pal directory</li>
+                    <li>Early access to limited edition holiday drops</li>
+                </ul>
+                
+                <br>
+                <a href="#" class="btn" style="width: 100%; text-align: center;">Subscribe Now</a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 The Paper & Poetry Club. Crafted for slow afternoons.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
